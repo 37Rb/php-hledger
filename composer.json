@@ -1,0 +1,20 @@
+{
+    "name": "hledger/php-hledger",
+    "description": "Use HLedger from PHP",
+    "type": "library",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Ryan Boder"
+        }
+    ],
+    "require": {},
+    "scripts": {
+        "post-install-cmd": [
+            "php install.php"
+        ],
+        "post-update-cmd": [
+            "php install.php"
+        ]
+    }
+}
