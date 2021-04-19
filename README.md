@@ -61,3 +61,9 @@ $bal = $hledger->balance([
     'not:desc:opening balances'
 ]);
 ```
+
+## Demo
+
+```
+$ php demo/demo.php
+```
