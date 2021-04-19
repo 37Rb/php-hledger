@@ -16,5 +16,10 @@
         "post-update-cmd": [
             "php install.php"
         ]
+    },
+    "autoload": {
+        "psr-4": {
+            "HLedger\\": "lib/",
+        }
     }
 }
