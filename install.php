@@ -5,6 +5,8 @@ $hledger = 'hledger';
 $hledger_ui = 'hledger-ui';
 $hledger_web = 'hledger-web';
 
+chdir(__DIR__);
+
 if (strtoupper(substr(PHP_OS, 0, 5)) === 'LINUX') {
   $os = 'ubuntu';
 } else if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
