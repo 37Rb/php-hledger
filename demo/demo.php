@@ -1,11 +1,11 @@
 <?php
 
-require 'lib/HLedger.php';
+require(__DIR__ . '/../lib/HLedger.php');
 
 use HLedger\HLedger;
 
 $hledger = new HLedger([
-    ['file', 'demo/bcexample.hledger']
+    ['file', realpath(__DIR__ . '/demo/bcexample.hledger')]
 ]);
 
 print_r($hledger->incomeStatement([
