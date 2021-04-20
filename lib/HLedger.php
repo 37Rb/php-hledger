@@ -30,7 +30,7 @@ class HLedger
     }
 
     /**
-     * @param $options Options applied to this command only.
+     * @param $options Options applied to this command.
      * @param $arguments Command arguments.
      */
     public function balance(array $options = [], array $arguments = []): array
@@ -39,7 +39,7 @@ class HLedger
     }
 
     /**
-     * @param $options Options applied to this command only.
+     * @param $options Options applied to this command.
      * @param $arguments Command arguments.
      */
     public function balanceSheet(array $options = [], array $arguments = []): array
@@ -48,7 +48,7 @@ class HLedger
     }
 
     /**
-     * @param $options Options applied to this command only.
+     * @param $options Options applied to this command.
      * @param $arguments Command arguments.
      */
     public function incomeStatement(array $options = [], array $arguments = []): array
