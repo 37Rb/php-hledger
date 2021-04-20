@@ -10,6 +10,7 @@ class HLedger
     private $options;
 
     private $hledgerExe;
+    private $lastCommand;
 
     /**
      * @param $options Options applied to every command on this instance.
@@ -55,12 +56,17 @@ class HLedger
         return $this->execute('incomestatement', $options, $arguments);
     }
 
+    public function lastCommandExecuted()
+    {
+        return $this->lastCommand;
+    }
+
     private function execute($command, $options, $arguments)
     {
         $ops = $this->renderOptions($options);
         $args = $this->renderArguments($arguments);
-        $command = "$this->hledgerExe balance $ops $args 2>&1";
-        $output = shell_exec($command);
+        $this->lastCommand = "$this->hledgerExe $command $ops $args 2>&1";
+        $output = shell_exec($this->lastCommand);
         if ($this->outputFormat == Self::OUTPUT_TABLE) {
             return $this->parseCsvToTable($output);
         } elseif ($this->outputFormat == Self::OUTPUT_TABLE) {
