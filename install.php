@@ -1,6 +1,7 @@
 <?php
 
 $zip_file = 'hledger.zip';
+$bin = 'bin';
 $hledger = 'hledger';
 $hledger_ui = 'hledger-ui';
 $hledger_web = 'hledger-web';
@@ -11,6 +12,9 @@ if (strtoupper(substr(PHP_OS, 0, 5)) === 'LINUX') {
     $os = 'ubuntu';
 } elseif (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
     $os = 'windows';
+    $hledger .= '.exe';
+    $hledger_ui .= '.exe';
+    $hledger_web .= '.exe';
 } elseif (strtoupper(substr(PHP_OS, 0, 6)) === 'DARWIN') {
     $os = 'macos';
 } else {
@@ -27,6 +31,8 @@ $fp = fopen($zip_file, "w");
 curl_setopt($ch, CURLOPT_FILE, $fp);
 curl_setopt($ch, CURLOPT_HEADER, 0);
 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 curl_exec($ch);
 if (curl_error($ch)) {
     echo("Error downloading hledger: " . curl_error($ch));
@@ -38,15 +44,18 @@ fclose($fp);
 $zip = new ZipArchive;
 $result = $zip->open($zip_file);
 if ($result === true) {
-    $zip->extractTo('bin/');
+    $zip->extractTo("$bin/");
     $zip->close();
 } else {
     echo("Error unzipping hledger");
     exit(1);
 }
 
-unlink("bin/$hledger_ui");
-unlink("bin/$hledger_web");
-unlink($zip_file);
+if (file_exists("$bin/$hledger_ui"))
+    unlink("$bin/$hledger_ui");
+if (file_exists("$bin/$hledger_web"))
+    unlink("$bin/$hledger_web");
+if (file_exists($zip_file))
+    unlink($zip_file);
 
-chmod("bin/$hledger", 0755);
+chmod("$bin/$hledger", 0755);

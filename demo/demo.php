@@ -5,7 +5,7 @@ require(__DIR__ . '/../lib/HLedger.php');
 use HLedger\HLedger;
 
 $hledger = new HLedger([
-    ['file', realpath(__DIR__ . '/demo/bcexample.hledger')]
+    ['file', realpath(__DIR__ . '/bcexample.hledger')]
 ]);
 
 print_r($hledger->incomeStatement([

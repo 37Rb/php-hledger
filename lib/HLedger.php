@@ -19,7 +19,11 @@ class HLedger
         array $options,
         string $output = Self::OUTPUT_TABLE
     ) {
-        $this->hledgerExe = realpath(__DIR__ . '/../bin/hledger');
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            $this->hledgerExe = realpath(__DIR__ . '\..\bin\hledger.exe');
+        } else {
+            $this->hledgerExe = realpath(__DIR__ . '/../bin/hledger');
+        }
         $this->options = $options;
         $this->outputFormat = $output;
         if ($output == Self::OUTPUT_TABLE) {
@@ -65,7 +69,7 @@ class HLedger
     {
         $ops = $this->renderOptions($options);
         $args = $this->renderArguments($arguments);
-        $this->lastCommand = "$this->hledgerExe $command $ops $args 2>&1";
+        $this->lastCommand = "\"$this->hledgerExe\" $command $ops $args 2>&1";
         $output = shell_exec($this->lastCommand);
         if ($this->outputFormat == Self::OUTPUT_TABLE) {
             return $this->parseCsvToTable($output);
