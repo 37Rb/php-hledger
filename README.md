@@ -2,6 +2,8 @@
 
 Installs [HLedger](https://hledger.org/) as a Composer dependency and provides a PHP API to easily use it from your app.
 
+This package uses [shell_exec](https://www.php.net/manual/en/function.shell-exec.php) and therefore shell_exec must be enabled in your server.
+
 ## Install
 
 Add to composer.json
