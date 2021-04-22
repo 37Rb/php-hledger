@@ -119,29 +119,40 @@ public function __construct(
     array $options,
     string $output = Self::OUTPUT_TABLE
 )
+```
 
+```php
 /**
- * Get accounts and their balances.
- * https://hledger.org/hledger.html#balance
- * @param $options Options applied to this command.
- * @param $arguments Command arguments.
+ * The following report commands all have the same syntax.
+ * @param array $options Options applied to this command.
+ * @param array $arguments Command arguments.
+ * @return array Resulting report in table or detail form.
  */
+
+// https://hledger.org/hledger.html#accounts
+public function accounts(array $options = [], array $arguments = []): array
+
+// https://hledger.org/hledger.html#aregister
+public function accountRegister(array $options = [], array $arguments = []): array
+
+// https://hledger.org/hledger.html#balance
 public function balance(array $options = [], array $arguments = []): array
 
-
-/**
- * Get a balance sheet, showing historical ending balances of asset and liability accounts.
- * https://hledger.org/hledger.html#balancesheet
- * @param $options Options applied to this command.
- * @param $arguments Command arguments.
- */
+// https://hledger.org/hledger.html#balancesheet
 public function balanceSheet(array $options = [], array $arguments = []): array
 
-/**
- * Get an income statement, showing revenues and expenses during one or more periods.
- * https://hledger.org/hledger.html#incomestatement
- * @param $options Options applied to this command.
- * @param $arguments Command arguments.
- */
+// https://hledger.org/hledger.html#balancesheetequity
+public function balanceSheetEquity(array $options = [], array $arguments = []): array
+
+// https://hledger.org/hledger.html#cashflow
+public function cashFlow(array $options = [], array $arguments = []): array
+
+// https://hledger.org/hledger.html#incomestatement
 public function incomeStatement(array $options = [], array $arguments = []): array
+
+// https://hledger.org/hledger.html#print
+public function print(array $options = [], array $arguments = []): array
+
+// https://hledger.org/hledger.html#register
+public function register(array $options = [], array $arguments = []): array
 ```

@@ -33,31 +33,49 @@ class HLedger
         }
     }
 
-    /**
-     * @param $options Options applied to this command.
-     * @param $arguments Command arguments.
-     */
+    public function accounts(array $options = [], array $arguments = []): array
+    {
+        return $this->execute('accounts', $options, $arguments);
+    }
+
+    public function accountRegister(array $options = [], array $arguments = []): array
+    {
+        return $this->execute('aregister', $options, $arguments);
+    }
+
     public function balance(array $options = [], array $arguments = []): array
     {
         return $this->execute('balance', $options, $arguments);
     }
 
-    /**
-     * @param $options Options applied to this command.
-     * @param $arguments Command arguments.
-     */
     public function balanceSheet(array $options = [], array $arguments = []): array
     {
         return $this->execute('balancesheet', $options, $arguments);
     }
 
-    /**
-     * @param $options Options applied to this command.
-     * @param $arguments Command arguments.
-     */
+    public function balanceSheetEquity(array $options = [], array $arguments = []): array
+    {
+        return $this->execute('balancesheetequity', $options, $arguments);
+    }
+
+    public function cashFlow(array $options = [], array $arguments = []): array
+    {
+        return $this->execute('cashflow', $options, $arguments);
+    }
+
     public function incomeStatement(array $options = [], array $arguments = []): array
     {
         return $this->execute('incomestatement', $options, $arguments);
+    }
+
+    public function print(array $options = [], array $arguments = []): array
+    {
+        return $this->execute('print', $options, $arguments);
+    }
+
+    public function register(array $options = [], array $arguments = []): array
+    {
+        return $this->execute('register', $options, $arguments);
     }
 
     public function lastCommandExecuted()
