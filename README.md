@@ -70,6 +70,21 @@ $bal = $hledger->balance([
 ], [
     'not:desc:opening balances'
 ]);
+
+$hledger->addTransaction([
+    'date' => new DateTime(),
+    'description' => 'Opening Balance for checking account',
+    'postings' => [
+        [
+            'account' => 'assets:US:BofA:Checking',
+            'amount' => '3077.70'
+        ],
+        [
+            'account' => 'equity:Opening Balances',
+            'amount' => '-3077.70'
+        ]
+    ]
+])
 ```
 
 To begin, create a new HLedger instance. Then run commands on it. The API is directly mapped to the [hledger command line interface](https://hledger.org/hledger.html). Commands accept options and arguments.
