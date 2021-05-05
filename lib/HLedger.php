@@ -33,6 +33,41 @@ class HLedger
         }
     }
 
+    public function makeTransaction(array $transaction): string
+    {
+        $t = $transaction['date']->format('Y-m-d');
+        if (!empty($transaction['status'])) {
+            $t .= ' ' . $transaction['status'];
+        }
+        if (!empty($transaction['code'])) {
+            $t .= ' ' . $transaction['code'];
+        }
+        if (!empty($transaction['description'])) {
+            $t .= ' ' . $transaction['description'];
+        }
+        if (!empty($transaction['comment'])) {
+            $t .= '  ;  ' . $transaction['comment'];
+        }
+        foreach ($transaction['postings'] as $posting) {
+            $p = PHP_EOL . '   ';
+            if (!empty($posting['status'])) {
+                $p .= ' ' . $posting['status'];
+            }
+            $p .= ' ' . $posting['account'];
+            $p .= '    ' . $posting['amount'];
+            if (!empty($posting['comment'])) {
+                $p .= '  ;  ' . $posting['comment'];
+            }
+            $t .= $p;
+        }
+        return $t;
+    }
+
+    public function addTransaction(array $transaction): string
+    {
+        // TODO
+    }
+
     public function accounts(array $options = [], array $arguments = []): array
     {
         return $this->execute('accounts', $options, $arguments);
