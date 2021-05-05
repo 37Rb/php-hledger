@@ -156,3 +156,35 @@ public function print(array $options = [], array $arguments = []): array
 // https://hledger.org/hledger.html#register
 public function register(array $options = [], array $arguments = []): array
 ```
+
+```PHP
+/**
+ * You can make a transaction which is returned as a string or you can add a
+ * transaction which appends it to the journal file. Both functions take the
+ * same parameter - a complex array representing the transaction.
+ */
+
+ // https://hledger.org/1.0/journal.html#file-format
+ $transaction = [
+	 'date' => DateTime, // required, only date is used
+	 'status' => string, // ! or *
+	 'code' => string, // eg a check number
+	 'description' => string,
+	 'comment' => string,
+	 'postings' => [
+		 [
+			 'status' => string, // ! or *
+			 'account' => string,
+			 'amount' => string,
+			 'comment' => string
+		 ],
+		 ...
+	 ]
+ ]
+
+ // Return transaction as a strings
+ public function makeTransaction(array $transaction): string
+
+ // Append transaction to journal file
+  public function addTransaction(array $transaction)
+```
