@@ -58,8 +58,7 @@ class HLedger
                 $p .= ' ' . $posting['status'];
             }
             $p .= ' ' . $posting['account'];
-            $spaces = 16 - strlen($posting['amount']);
-            $spaces = max($spaces, 4);
+            $spaces = $accountsWidth - strlen($posting['account']) + max(16 - strlen($posting['amount']), 4);
             $p .= str_repeat(' ', $spaces) . $posting['amount'];
             if (!empty($posting['comment'])) {
                 $p .= '  ;  ' . $posting['comment'];

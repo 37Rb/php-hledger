@@ -37,7 +37,7 @@ print(PHP_EOL . $hledger->makeTransaction([
     'description' => 'Opening Balance for checking account',
     'postings' => [
         [
-            'account' => 'assets:US:BofA:Checking',
+            'account' => 'assets:US:Chase Bank:Checking',
             'amount' => '3077.70'
         ],
         [
@@ -56,7 +56,7 @@ $hledger->addTransaction([
     'postings' => [
         [
             'status' => '!',
-            'account' => 'assets:US:BofA:Checking',
+            'account' => 'assets:US:Bank of America:Checking',
             'amount' => '3077.70',
             'comment' => 'This is a comment'
         ],
