@@ -85,36 +85,47 @@ class HLedger
 
     public function accounts(array $options = [], array $arguments = []): array
     {
-        return $this->execute('accounts', $options, $arguments);
+        $options = array_filter(array_merge($this->options, $options), function ($option) {
+            return $option[0] != 'output-format';
+        });
+        return array_map(function ($row) {
+            return $row[0];
+        }, $this->execute('accounts', $options, $arguments));
     }
 
     public function accountRegister(array $options = [], array $arguments = []): array
     {
+        $options = array_merge($this->options, $options);
         return $this->execute('aregister', $options, $arguments);
     }
 
     public function balance(array $options = [], array $arguments = []): array
     {
+        $options = array_merge($this->options, $options);
         return $this->execute('balance', $options, $arguments);
     }
 
     public function balanceSheet(array $options = [], array $arguments = []): array
     {
+        $options = array_merge($this->options, $options);
         return $this->execute('balancesheet', $options, $arguments);
     }
 
     public function balanceSheetEquity(array $options = [], array $arguments = []): array
     {
+        $options = array_merge($this->options, $options);
         return $this->execute('balancesheetequity', $options, $arguments);
     }
 
     public function cashFlow(array $options = [], array $arguments = []): array
     {
+        $options = array_merge($this->options, $options);
         return $this->execute('cashflow', $options, $arguments);
     }
 
     public function incomeStatement(array $options = [], array $arguments = []): array
     {
+        $options = array_merge($this->options, $options);
         return $this->execute('incomestatement', $options, $arguments);
     }
 
@@ -125,6 +136,7 @@ class HLedger
 
     public function register(array $options = [], array $arguments = []): array
     {
+        $options = array_merge($this->options, $options);
         return $this->execute('register', $options, $arguments);
     }
 
@@ -146,9 +158,8 @@ class HLedger
         }
     }
 
-    private function renderOptions($commandOptions)
+    private function renderOptions($options)
     {
-        $options = array_merge($this->options, $commandOptions);
         return implode(' ', array_map(function ($option) {
             if (count($option) == 1) {
                 return escapeshellarg('--' . $option[0]);

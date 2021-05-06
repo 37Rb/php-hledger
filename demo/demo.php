@@ -8,6 +8,8 @@ $hledger = new HLedger([
     ['file', realpath(__DIR__ . '/bcexample.hledger')]
 ]);
 
+print_r($hledger->accounts());
+
 print_r($hledger->incomeStatement([
     ['monthly'],
     ['market'],
