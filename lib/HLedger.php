@@ -63,9 +63,19 @@ class HLedger
         return $t;
     }
 
-    public function addTransaction(array $transaction): string
+    public function addTransaction(array $transaction)
     {
-        // TODO
+        $files = array_filter($this->options, function ($option) {
+            return $option[0] == 'file';
+        });
+        if (count($files) == 0) {
+            throw new \Exception('Please specify a journal file in the contructor options.');
+        }
+        $file = $files[0][1];
+        $data = PHP_EOL . $this->makeTransaction($transaction) . PHP_EOL;
+        if (file_put_contents($file, $data, FILE_APPEND) != strlen($data)) {
+            throw new \Exception('Failed to append transaction.');
+        }
     }
 
     public function accounts(array $options = [], array $arguments = []): array

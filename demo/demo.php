@@ -47,7 +47,7 @@ print(PHP_EOL . $hledger->makeTransaction([
     ]
 ]) . PHP_EOL);
 
-print(PHP_EOL . $hledger->makeTransaction([
+$hledger->addTransaction([
     'date' => new DateTime(),
     'status' => '*',
     'code' => '123',
@@ -67,4 +67,4 @@ print(PHP_EOL . $hledger->makeTransaction([
             'comment' => 'This is a comment'
         ]
     ]
-]) . PHP_EOL);
+]);
