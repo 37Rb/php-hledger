@@ -48,13 +48,19 @@ class HLedger
         if (!empty($transaction['comment'])) {
             $t .= '  ;  ' . $transaction['comment'];
         }
+        $accountsWidth = 0;
+        foreach ($transaction['postings'] as $posting) {
+            $accountsWidth = max($accountsWidth, strlen($posting['account']));
+        }
         foreach ($transaction['postings'] as $posting) {
             $p = PHP_EOL . '   ';
             if (!empty($posting['status'])) {
                 $p .= ' ' . $posting['status'];
             }
             $p .= ' ' . $posting['account'];
-            $p .= '    ' . $posting['amount'];
+            $spaces = 16 - strlen($posting['amount']);
+            $spaces = max($spaces, 4);
+            $p .= str_repeat(' ', $spaces) . $posting['amount'];
             if (!empty($posting['comment'])) {
                 $p .= '  ;  ' . $posting['comment'];
             }
