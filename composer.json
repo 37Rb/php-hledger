@@ -8,7 +8,10 @@
             "name": "Ryan Boder"
         }
     ],
-    "require": {},
+    "require": {
+            "ext-zip": "*",
+            "ext-curl": "*"
+        },
     "scripts": {
         "post-install-cmd": [
             "php install.php"

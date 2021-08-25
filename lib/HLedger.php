@@ -7,6 +7,7 @@ class HLedger
     const OUTPUT_DETAIL = 'detail';
     private $outputFormat;
 
+    private $dataDir;
     private $options;
 
     private $hledgerExe;
@@ -17,6 +18,7 @@ class HLedger
      */
     public function __construct(
         array $options,
+        string $dataDir,
         string $output = Self::OUTPUT_TABLE
     ) {
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
@@ -25,6 +27,7 @@ class HLedger
             $this->hledgerExe = realpath(__DIR__ . '/../bin/hledger');
         }
         $this->options = $options;
+        $this->dataDir = $dataDir;
         $this->outputFormat = $output;
         if ($output == Self::OUTPUT_TABLE) {
             array_push($this->options, ['output-format', 'csv']);
@@ -140,6 +143,12 @@ class HLedger
         return $this->execute('register', $options, $arguments);
     }
 
+    public function custom(string $argsFile, array $options = [], array $arguments = []): array
+    {
+        $options = array_merge($this->options, $options);
+        return $this->execute(escapeshellarg('@' . $argsFile), $options, $arguments);
+    }
+
     public function lastCommandExecuted()
     {
         return $this->lastCommand;
@@ -149,7 +158,7 @@ class HLedger
     {
         $ops = $this->renderOptions($options);
         $args = $this->renderArguments($arguments);
-        $this->lastCommand = "\"$this->hledgerExe\" $command $ops $args 2>&1";
+        $this->lastCommand = "cd \"$this->dataDir\" && \"$this->hledgerExe\" $command $ops $args 2>&1";
         $output = shell_exec($this->lastCommand);
         if ($this->outputFormat == Self::OUTPUT_TABLE) {
             return $this->parseCsvToTable($output);
